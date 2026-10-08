@@ -43,7 +43,7 @@ Zero2One/
     lib/gamification/rules.ts  ✅ XP/streak/freeze (pure, tested next)
     lib/content/schemas.ts     ✅ Zod lesson/drill validation
     lib/rbac.ts                ✅ role helpers
-    lib/quiz/                  ⏳ classroomio-inspired registry (next)
+    lib/quiz/                  ✅ registry + scoring + zod schemas (classroomio-inspired)
     components/workspace/      ⏳ StandardIde, DrillInterface, VibeIde
     components/ui/             ⏳ design tokens
     routes/                    ⏳ TanStack file routes

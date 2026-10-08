@@ -5,6 +5,7 @@
 **Last Updated:** 2026-10-08
 
 ## Done this session
+- [x] Quiz registry `src/lib/quiz/` (registry/scoring/schemas/index, 11 smoke assertions green, tsc clean)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
@@ -13,9 +14,7 @@
 - [x] Base DDL `supabase/schema.sql` + `public/logo.svg` carried over as migration start
 
 ## Next (incremental: Auth → DB → UI Core → Learning Engines → Gamification)
-1. `npm install` + `npm run typecheck` verification
-2. Quiz registry `src/lib/quiz/` (classroomio-inspired, strict TS)
-3. Server execution fallback `src/server/execution.ts` (learnhouse/Frappe shape)
+1. Server execution fallback `src/server/execution.ts` (learnhouse/Frappe shape)
 4. Workspace ports: StandardIde → DrillInterface → VibeIde
 5. Initial commit + push (after creating GitHub repo `Zero2One-Reloaded`)
 
