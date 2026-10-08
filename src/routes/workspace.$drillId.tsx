@@ -9,6 +9,12 @@ import type { Drill } from "@/lib/domain/types";
 import { runDrill } from "@/server-fns/execute";
 import { StreakCounter } from "@/components/gamification/StreakCounter";
 import { useLocalStreak } from "@/hooks/useLocalStreak";
+import { useAuth } from "@/lib/supabase/auth";
+import {
+  browserSupabaseConfig,
+  getSupabaseBrowserClient,
+} from "@/lib/supabase/client";
+import { syncPassToRemote } from "@/lib/supabase/progress-sync";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 
 export const Route = createFileRoute("/workspace/$drillId")({
@@ -47,6 +53,7 @@ function WorkspacePage() {
   const addXp = useWorkspaceStore((s) => s.addXp);
   const xp = useWorkspaceStore((s) => s.xp);
   const { state: streak, recordActivity } = useLocalStreak();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (lesson) {
@@ -120,6 +127,11 @@ function WorkspacePage() {
           onPass={(info) => {
             addXp(info.xpEarned);
             recordActivity();
+            void syncPassToRemote(
+              getSupabaseBrowserClient(browserSupabaseConfig()),
+              user?.id ?? null,
+              drill,
+            );
           }}
         />
       </div>
