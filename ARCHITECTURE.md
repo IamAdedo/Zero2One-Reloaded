@@ -47,7 +47,7 @@ Zero2One/
     components/workspace/      ⏳ StandardIde, DrillInterface, VibeIde
     components/ui/             ⏳ design tokens
     routes/                    ⏳ TanStack file routes
-    server/                    ⏳ execution fallback + AI coach
+    server/                    ✅ execution fallback (Judge0 batch + grading)
   supabase/schema.sql          ✅ base DDL (from legacy, RLS intact)
   public/logo.svg              ✅ brand asset
 ```
