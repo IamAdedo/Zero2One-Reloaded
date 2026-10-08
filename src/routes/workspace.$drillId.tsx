@@ -77,6 +77,15 @@ function WorkspacePage() {
         <span>/</span>
         <span className="text-foreground">{drill.id}</span>
         <span className="ml-auto hidden gap-2 sm:flex">
+          {lesson && (
+            <Link
+              to="/lessons/$lessonId"
+              params={{ lessonId: lesson.id }}
+              className="hover:text-foreground"
+            >
+              ← Review lesson
+            </Link>
+          )}
           {drills
             .filter((d) => d.id !== drill.id)
             .map((d) => (

@@ -11,6 +11,7 @@
 - [x] Workspace store `src/store/useWorkspaceStore.ts` (LESSON→DRILL, seed-if-absent code, XP floor, 10 smoke assertions green)
 - [x] DrillInterface port `src/components/workspace/DrillInterface.tsx` (Monaco + v4 resizable panes, store/quiz/XP wired, 7 SSR render checks green)
 - [x] Workspace route `/workspace/$drillId` (seed registry, `runDrill` server fn → Judge0 fallback, full SSR, 404 page)
+- [x] Lesson route `/lessons/$lessonId` + `LessonView` (Phase 1 → drill CTA → review-lesson loop, SSR verified)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
@@ -22,7 +23,7 @@
 1. Lesson view (Phase 1) + Supabase wiring; live grading needs `JUDGE0_URL` in `.env`
 
 ## Gotchas
-- `vite dev` regenerates `routeTree.gen.ts` WITHOUT the `@tanstack/react-start` Register block → run `npm run build` after adding routes, before typecheck/commit.
+- `vite dev` regenerates `routeTree.gen.ts` WITHOUT the `@tanstack/react-start` Register block → permanent fix: augmentation lives in tracked `src/start-register.ts`, independent of the generated file. `npm run build` still required after adding routes (regenerates tree).
 - Monaco must load via `lazy()` — static import breaks SSR module interop (client-render fallback, hydration risk).
 4. Workspace ports: StandardIde → DrillInterface → VibeIde
 5. Initial commit + push (after creating GitHub repo `Zero2One-Reloaded`)

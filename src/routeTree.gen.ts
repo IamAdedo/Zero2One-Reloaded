@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LessonsLessonIdRouteImport } from './routes/lessons.$lessonId'
 import { Route as WorkspaceDrillIdRouteImport } from './routes/workspace.$drillId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LessonsLessonIdRoute = LessonsLessonIdRouteImport.update({
+  id: '/lessons/$lessonId',
+  path: '/lessons/$lessonId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkspaceDrillIdRoute = WorkspaceDrillIdRouteImport.update({
@@ -25,27 +31,31 @@ const WorkspaceDrillIdRoute = WorkspaceDrillIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/lessons/$lessonId': typeof LessonsLessonIdRoute
   '/workspace/$drillId': typeof WorkspaceDrillIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/lessons/$lessonId': typeof LessonsLessonIdRoute
   '/workspace/$drillId': typeof WorkspaceDrillIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/lessons/$lessonId': typeof LessonsLessonIdRoute
   '/workspace/$drillId': typeof WorkspaceDrillIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/workspace/$drillId'
+  fullPaths: '/' | '/lessons/$lessonId' | '/workspace/$drillId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/workspace/$drillId'
-  id: '__root__' | '/' | '/workspace/$drillId'
+  to: '/' | '/lessons/$lessonId' | '/workspace/$drillId'
+  id: '__root__' | '/' | '/lessons/$lessonId' | '/workspace/$drillId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LessonsLessonIdRoute: typeof LessonsLessonIdRoute
   WorkspaceDrillIdRoute: typeof WorkspaceDrillIdRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lessons/$lessonId': {
+      id: '/lessons/$lessonId'
+      path: '/lessons/$lessonId'
+      fullPath: '/lessons/$lessonId'
+      preLoaderRoute: typeof LessonsLessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/workspace/$drillId': {
@@ -70,18 +87,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LessonsLessonIdRoute: LessonsLessonIdRoute,
   WorkspaceDrillIdRoute: WorkspaceDrillIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
