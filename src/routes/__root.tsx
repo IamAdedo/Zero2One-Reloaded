@@ -66,6 +66,12 @@ function RootComponent() {
               >
                 Courses
               </Link>
+              <Link
+                to="/leaderboard"
+                className="font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                Ranks
+              </Link>
               <span className="ml-auto">
                 <AuthButton />
               </span>
