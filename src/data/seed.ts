@@ -1,4 +1,4 @@
-import type { Drill, Lesson } from "@/lib/domain/types";
+import type { Course, Drill, Lesson, Track } from "@/lib/domain/types";
 
 /**
  * Minimal executable seed registry. Every drill carries runnable stdin /
@@ -78,6 +78,87 @@ const DRILLS: Record<string, Drill> = {
 const MODULE_TITLES: Record<string, string> = {
   "module-py-basics": "Python Basics",
 };
+
+export interface SeedModule {
+  id: string;
+  title: string;
+  lessonIds: string[];
+}
+
+const MODULES: Record<string, SeedModule> = {
+  "module-py-basics": {
+    id: "module-py-basics",
+    title: "Python Basics",
+    lessonIds: ["lesson-py-io", "lesson-py-branch"],
+  },
+};
+
+const TRACKS: Track[] = [
+  {
+    id: "track-py-backend",
+    slug: "python-backend",
+    title: "Python Backend",
+    type: "role_backend",
+    primaryLanguage: "Python",
+    description:
+      "Server-side Python from stdin/stdout basics toward API engineering.",
+    estimatedHours: 40,
+  },
+];
+
+const TRACK_MODULES: Record<string, string[]> = {
+  "track-py-backend": ["module-py-basics"],
+};
+
+const COURSES: Course[] = [
+  {
+    id: "course-py-io",
+    slug: "python-io",
+    title: "Python I/O Essentials",
+    technology: "Python",
+    category: "language",
+    description: "Reading input, writing output, and branching on values.",
+    estimatedMinutes: 60,
+    level: "beginner",
+    published: true,
+  },
+];
+
+const COURSE_MODULES: Record<string, string[]> = {
+  "course-py-io": ["module-py-basics"],
+};
+
+export function listTracks(): Track[] {
+  return TRACKS;
+}
+
+export function getTrack(slug: string): Track | undefined {
+  return TRACKS.find((t) => t.slug === slug);
+}
+
+export function modulesForTrack(trackId: string): SeedModule[] {
+  return (TRACK_MODULES[trackId] ?? [])
+    .map((id) => MODULES[id])
+    .filter((m): m is SeedModule => m !== undefined);
+}
+
+export function listCourses(): Course[] {
+  return COURSES.filter((c) => c.published);
+}
+
+export function modulesForCourse(courseId: string): SeedModule[] {
+  return (COURSE_MODULES[courseId] ?? [])
+    .map((id) => MODULES[id])
+    .filter((m): m is SeedModule => m !== undefined);
+}
+
+export function lessonsForModule(moduleId: string): Lesson[] {
+  const mod = MODULES[moduleId];
+  if (!mod) return [];
+  return mod.lessonIds
+    .map((id) => LESSONS[id])
+    .filter((l): l is Lesson => l !== undefined);
+}
 
 export function getDrill(id: string): Drill | undefined {
   return DRILLS[id];

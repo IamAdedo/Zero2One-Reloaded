@@ -43,12 +43,18 @@ function HomePage() {
           </article>
         ))}
       </section>
-      <section>
+      <section className="flex flex-wrap gap-3">
         <a
-          href="/lessons/lesson-py-io"
+          href="/tracks"
           className="inline-block rounded-md bg-primary px-4 py-2 font-mono text-sm font-semibold text-primary-foreground hover:bg-primary/90"
         >
-          Start with Phase 1: Reading input, writing output →
+          Browse career tracks →
+        </a>
+        <a
+          href="/courses"
+          className="inline-block rounded-md border border-border px-4 py-2 font-mono text-sm hover:border-primary"
+        >
+          Browse micro-courses →
         </a>
       </section>
     </div>

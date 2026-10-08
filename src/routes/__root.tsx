@@ -54,6 +54,18 @@ function RootComponent() {
               <span className="text-sm text-muted-foreground">
                 Zero2One Reloaded
               </span>
+              <Link
+                to="/tracks"
+                className="font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                Tracks
+              </Link>
+              <Link
+                to="/courses"
+                className="font-mono text-xs text-muted-foreground hover:text-foreground"
+              >
+                Courses
+              </Link>
               <span className="ml-auto">
                 <AuthButton />
               </span>
