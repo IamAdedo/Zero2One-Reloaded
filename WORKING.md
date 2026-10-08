@@ -16,6 +16,7 @@
 - [x] Login route + header `AuthButton` (offline notice when unconfigured, SSR-safe loading placeholder)
 - [x] Gamification slice: `StreakCounter` (compact/card) + `useLocalStreak` offline hook, wired to drill passes (11 smoke checks green)
 - [x] Catalog index: `/tracks` + `/courses` from seed relations, header nav, landing CTAs
+- [x] Track detail `/tracks/$slug` (module/lesson/drill curriculum tree, 404 page)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
