@@ -14,6 +14,7 @@
 - [x] Lesson route `/lessons/$lessonId` + `LessonView` (Phase 1 → drill CTA → review-lesson loop, SSR verified)
 - [x] Supabase client + `AuthProvider` (null-safe offline mode, `VITE_` browser vars, SSR-safe static env access, 6 smoke checks green)
 - [x] Login route + header `AuthButton` (offline notice when unconfigured, SSR-safe loading placeholder)
+- [x] Gamification slice: `StreakCounter` (compact/card) + `useLocalStreak` offline hook, wired to drill passes (11 smoke checks green)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)

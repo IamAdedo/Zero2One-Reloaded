@@ -7,6 +7,8 @@ import {
 import { getDrill, getLesson, listDrills, moduleTitleFor } from "@/data/seed";
 import type { Drill } from "@/lib/domain/types";
 import { runDrill } from "@/server-fns/execute";
+import { StreakCounter } from "@/components/gamification/StreakCounter";
+import { useLocalStreak } from "@/hooks/useLocalStreak";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 
 export const Route = createFileRoute("/workspace/$drillId")({
@@ -43,6 +45,8 @@ function WorkspacePage() {
   const openLesson = useWorkspaceStore((s) => s.openLesson);
   const startDrill = useWorkspaceStore((s) => s.startDrill);
   const addXp = useWorkspaceStore((s) => s.addXp);
+  const xp = useWorkspaceStore((s) => s.xp);
+  const { state: streak, recordActivity } = useLocalStreak();
 
   useEffect(() => {
     if (lesson) {
@@ -76,16 +80,17 @@ function WorkspacePage() {
         <span>Workspace</span>
         <span>/</span>
         <span className="text-foreground">{drill.id}</span>
-        <span className="ml-auto hidden gap-2 sm:flex">
-          {lesson && (
-            <Link
-              to="/lessons/$lessonId"
-              params={{ lessonId: lesson.id }}
-              className="hover:text-foreground"
-            >
-              ← Review lesson
-            </Link>
-          )}
+        {lesson && (
+          <Link
+            to="/lessons/$lessonId"
+            params={{ lessonId: lesson.id }}
+            className="hover:text-foreground"
+          >
+            ← Review lesson
+          </Link>
+        )}
+        <span className="ml-auto flex items-center gap-3">
+          <span className="hidden gap-2 sm:flex">
           {drills
             .filter((d) => d.id !== drill.id)
             .map((d) => (
@@ -98,6 +103,13 @@ function WorkspacePage() {
                 {d.id}
               </Link>
             ))}
+          </span>
+          <StreakCounter
+            currentStreak={streak.currentStreak}
+            maxStreak={streak.maxStreak}
+            freezeTokens={streak.freezeTokens}
+            xp={xp}
+          />
         </span>
       </nav>
       <div className="h-[calc(100dvh-12rem)] min-h-[32rem] overflow-hidden rounded-lg border border-border">
@@ -105,7 +117,10 @@ function WorkspacePage() {
           drill={drill}
           moduleTitle={moduleTitleFor(drill.moduleId)}
           onRun={handleRun}
-          onPass={(info) => addXp(info.xpEarned)}
+          onPass={(info) => {
+            addXp(info.xpEarned);
+            recordActivity();
+          }}
         />
       </div>
     </div>
