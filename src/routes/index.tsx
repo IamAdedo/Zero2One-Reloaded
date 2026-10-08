@@ -43,6 +43,14 @@ function HomePage() {
           </article>
         ))}
       </section>
+      <section>
+        <a
+          href="/workspace/py-add"
+          className="inline-block rounded-md bg-primary px-4 py-2 font-mono text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+        >
+          Try a drill: py-add →
+        </a>
+      </section>
     </div>
   );
 }

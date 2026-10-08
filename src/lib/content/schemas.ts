@@ -11,6 +11,8 @@ export const TestAssertionSchema = z.object({
   id: z.string().min(1),
   label: z.string().min(1),
   hidden: z.boolean(),
+  stdin: z.string().max(20_000).optional(),
+  expectedStdout: z.string().max(20_000).optional(),
 });
 
 export const DrillContentSchema = z.object({

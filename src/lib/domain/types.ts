@@ -75,6 +75,9 @@ export interface TestAssertion {
   id: string;
   label: string;
   hidden: boolean;
+  /** Executable grading data. Absent for spec-only assertions. */
+  stdin?: string;
+  expectedStdout?: string;
 }
 
 export interface DrillContent {

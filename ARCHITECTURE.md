@@ -46,7 +46,7 @@ Zero2One/
     lib/quiz/                  ✅ registry + scoring + zod schemas (classroomio-inspired)
     components/workspace/      ✅ DrillInterface (Monaco + resizable panes + quiz/XP wiring)
     components/ui/             ⏳ design tokens
-    routes/                    ✅ app shell (__root + index, build + tsc clean)
+    routes/                    ✅ app shell + workspace/$drillId (seed drills, server fn, full SSR)
     server/                    ✅ execution fallback (Judge0 batch + grading)
   supabase/schema.sql          ✅ base DDL (from legacy, RLS intact)
   public/logo.svg              ✅ brand asset

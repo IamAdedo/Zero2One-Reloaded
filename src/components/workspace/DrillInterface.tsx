@@ -1,5 +1,5 @@
-import { useState } from "react";
-import Editor from "@monaco-editor/react";
+import { lazy, Suspense, useState } from "react";
+import type { EditorProps } from "@monaco-editor/react";
 import {
   AlertCircle,
   CheckCircle2,
@@ -25,6 +25,16 @@ export interface DrillRunVerdict {
   error?: string;
 }
 
+/**
+ * Monaco ships browser-only code that breaks Vite SSR module interop, so it
+ * loads client-side only. SSR and the first client paint render the fallback
+ * (no hydration mismatch), then the editor hydrates in place.
+ */
+const MonacoEditor = lazy(() =>
+  import("@monaco-editor/react").then((m) => ({
+    default: (m.Editor ?? m.default) as React.ComponentType<EditorProps>,
+  })),
+);
 export interface DrillPassInfo {
   xpEarned: number;
   firstTry: boolean;
@@ -277,28 +287,36 @@ export function DrillInterface({
                   </div>
                 </div>
                 <div className="flex-1 overflow-hidden">
-                  <Editor
-                    height="100%"
-                    theme="vs-dark"
-                    language={monacoLanguageFor(drill.content.language)}
-                    value={code}
-                    onChange={(val) => updateCode(drill.id, val ?? "")}
-                    onMount={(editor, monaco) => {
-                      editor.addCommand(
-                        monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
-                        () => void handleRun(),
-                      );
-                    }}
-                    options={{
-                      fontSize: 13,
-                      lineNumbers: "on",
-                      minimap: { enabled: false },
-                      scrollBeyondLastLine: false,
-                      tabSize: 2,
-                      automaticLayout: true,
-                      padding: { top: 12, bottom: 12 },
-                    }}
-                  />
+                  <Suspense
+                    fallback={
+                      <div className="flex h-full items-center justify-center bg-[#1e1e1e] font-mono text-xs text-zinc-500">
+                        Loading editor...
+                      </div>
+                    }
+                  >
+                    <MonacoEditor
+                      height="100%"
+                      theme="vs-dark"
+                      language={monacoLanguageFor(drill.content.language)}
+                      value={code}
+                      onChange={(val) => updateCode(drill.id, val ?? "")}
+                      onMount={(editor, monaco) => {
+                        editor.addCommand(
+                          monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+                          () => void handleRun(),
+                        );
+                      }}
+                      options={{
+                        fontSize: 13,
+                        lineNumbers: "on",
+                        minimap: { enabled: false },
+                        scrollBeyondLastLine: false,
+                        tabSize: 2,
+                        automaticLayout: true,
+                        padding: { top: 12, bottom: 12 },
+                      }}
+                    />
+                  </Suspense>
                 </div>
               </div>
             </Panel>

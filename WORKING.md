@@ -10,6 +10,7 @@
 - [x] TanStack app shell (client/router/start/server, root layout, landing, `vite build` + tsc clean)
 - [x] Workspace store `src/store/useWorkspaceStore.ts` (LESSON→DRILL, seed-if-absent code, XP floor, 10 smoke assertions green)
 - [x] DrillInterface port `src/components/workspace/DrillInterface.tsx` (Monaco + v4 resizable panes, store/quiz/XP wired, 7 SSR render checks green)
+- [x] Workspace route `/workspace/$drillId` (seed registry, `runDrill` server fn → Judge0 fallback, full SSR, 404 page)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
@@ -18,7 +19,11 @@
 - [x] Base DDL `supabase/schema.sql` + `public/logo.svg` carried over as migration start
 
 ## Next (incremental: Auth → DB → UI Core → Learning Engines → Gamification)
-1. Workspace route `/workspace/$drillId` wiring DrillInterface to execution fallback
+1. Lesson view (Phase 1) + Supabase wiring; live grading needs `JUDGE0_URL` in `.env`
+
+## Gotchas
+- `vite dev` regenerates `routeTree.gen.ts` WITHOUT the `@tanstack/react-start` Register block → run `npm run build` after adding routes, before typecheck/commit.
+- Monaco must load via `lazy()` — static import breaks SSR module interop (client-render fallback, hydration risk).
 4. Workspace ports: StandardIde → DrillInterface → VibeIde
 5. Initial commit + push (after creating GitHub repo `Zero2One-Reloaded`)
 

@@ -172,6 +172,68 @@ export interface ExecutionHttpClient {
   }): Promise<Judge0Verdict>;
 }
 
+interface Judge0Response {
+  stdout?: unknown;
+  stderr?: unknown;
+  compile_output?: unknown;
+  status?: { id?: unknown };
+  time?: unknown;
+  memory?: unknown;
+}
+
+function asText(value: unknown): string | null {
+  return typeof value === "string" ? value : null;
+}
+
+function asStatusId(value: unknown): number {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+function asTimeMs(value: unknown): number | null {
+  const seconds = typeof value === "string" ? Number(value) : value;
+  if (typeof seconds !== "number" || !Number.isFinite(seconds)) return null;
+  return Math.round(seconds * 1000);
+}
+
+/**
+ * Live Judge0 CE client. `apiKey` is sent as a Bearer token (ignored by open
+ * instances, honored by proxies) — never in the URL.
+ */
+export function createFetchHttpClient(
+  fetcher: typeof fetch = fetch,
+): ExecutionHttpClient {
+  return {
+    async postSubmission(input) {
+      const url = `${input.baseUrl.replace(/\/$/, "")}/submissions?base64_encoded=false&wait=true`;
+      const headers: Record<string, string> = {
+        "content-type": "application/json",
+      };
+      if (input.apiKey) headers["authorization"] = `Bearer ${input.apiKey}`;
+      const res = await fetcher(url, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          language_id: input.languageId,
+          source_code: input.sourceCode,
+          stdin: input.stdin,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error(`Judge0 request failed with status ${res.status}`);
+      }
+      const body = (await res.json()) as Judge0Response;
+      return {
+        stdout: asText(body.stdout),
+        stderr: asText(body.stderr),
+        compileOutput: asText(body.compile_output),
+        statusId: asStatusId(body.status?.id),
+        timeMs: asTimeMs(body.time),
+        memoryKb: typeof body.memory === "number" ? body.memory : null,
+      };
+    },
+  };
+}
+
 export interface ExecutionConfig {
   baseUrl: string | null;
   apiKey: string | null;
