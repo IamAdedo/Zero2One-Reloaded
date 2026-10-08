@@ -9,6 +9,7 @@ import {
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/supabase/auth";
+import { AuthButton } from "@/components/layout/AuthButton";
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -52,6 +53,9 @@ function RootComponent() {
               </Link>
               <span className="text-sm text-muted-foreground">
                 Zero2One Reloaded
+              </span>
+              <span className="ml-auto">
+                <AuthButton />
               </span>
             </nav>
           </header>
