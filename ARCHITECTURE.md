@@ -46,7 +46,7 @@ Zero2One/
     lib/quiz/                  ✅ registry + scoring + zod schemas (classroomio-inspired)
     components/workspace/      ⏳ StandardIde, DrillInterface, VibeIde
     components/ui/             ⏳ design tokens
-    routes/                    ⏳ TanStack file routes
+    routes/                    ✅ app shell (__root + index, build + tsc clean)
     server/                    ✅ execution fallback (Judge0 batch + grading)
   supabase/schema.sql          ✅ base DDL (from legacy, RLS intact)
   public/logo.svg              ✅ brand asset

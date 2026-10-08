@@ -7,6 +7,7 @@
 ## Done this session
 - [x] Quiz registry `src/lib/quiz/` (registry/scoring/schemas/index, 11 smoke assertions green, tsc clean)
 - [x] Server execution fallback `src/server/execution.ts` (19 smoke assertions green, tsc clean)
+- [x] TanStack app shell (client/router/start/server, root layout, landing, `vite build` + tsc clean)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
