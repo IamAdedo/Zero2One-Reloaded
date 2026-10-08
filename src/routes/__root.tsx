@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
+import { AuthProvider } from "@/lib/supabase/auth";
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -40,6 +41,7 @@ function RootComponent() {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
+          <AuthProvider>
           <header className="border-b border-border">
             <nav className="mx-auto flex max-w-5xl items-center gap-6 px-4 py-3">
               <Link
@@ -61,6 +63,7 @@ function RootComponent() {
               Zero2One Reloaded — concept first, drill second.
             </p>
           </footer>
+          </AuthProvider>
         </QueryClientProvider>
         <Toaster richColors position="bottom-right" />
         <Scripts />

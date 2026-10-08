@@ -12,6 +12,7 @@
 - [x] DrillInterface port `src/components/workspace/DrillInterface.tsx` (Monaco + v4 resizable panes, store/quiz/XP wired, 7 SSR render checks green)
 - [x] Workspace route `/workspace/$drillId` (seed registry, `runDrill` server fn → Judge0 fallback, full SSR, 404 page)
 - [x] Lesson route `/lessons/$lessonId` + `LessonView` (Phase 1 → drill CTA → review-lesson loop, SSR verified)
+- [x] Supabase client + `AuthProvider` (null-safe offline mode, `VITE_` browser vars, SSR-safe static env access, 6 smoke checks green)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
