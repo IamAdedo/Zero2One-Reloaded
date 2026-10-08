@@ -44,7 +44,7 @@ Zero2One/
     lib/content/schemas.ts     ✅ Zod lesson/drill validation
     lib/rbac.ts                ✅ role helpers
     lib/quiz/                  ✅ registry + scoring + zod schemas (classroomio-inspired)
-    components/workspace/      ⏳ StandardIde, DrillInterface, VibeIde
+    components/workspace/      ⏳ DrillInterface (next — needs store ✅ + quiz ✅)
     components/ui/             ⏳ design tokens
     routes/                    ✅ app shell (__root + index, build + tsc clean)
     server/                    ✅ execution fallback (Judge0 batch + grading)
