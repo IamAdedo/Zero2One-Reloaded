@@ -67,6 +67,15 @@ function TrackPage() {
         <p className="font-mono text-xs text-muted-foreground">
           {modules.length} modules · {totalLessons} lessons
         </p>
+        <p>
+          <Link
+            to="/placement/$trackSlug"
+            params={{ trackSlug: track.slug }}
+            className="font-mono text-xs text-amber-300 hover:underline"
+          >
+            Know the basics? Take the 3-question placement →
+          </Link>
+        </p>
       </div>
       {modules.map((m, mi) => (
         <section

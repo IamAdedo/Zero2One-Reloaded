@@ -175,3 +175,51 @@ export function moduleTitleFor(moduleId: string): string {
 export function listDrills(): Drill[] {
   return Object.values(DRILLS);
 }
+
+export interface PlacementOption {
+  id: string;
+  label: string;
+  isCorrect: boolean;
+}
+
+export interface PlacementQuestion {
+  id: string;
+  prompt: string;
+  options: PlacementOption[];
+}
+
+const PLACEMENT_QUESTIONS: Record<string, PlacementQuestion[]> = {
+  "track-py-backend": [
+    {
+      id: "pq-input",
+      prompt: "What does input() return in Python?",
+      options: [
+        { id: "a", label: "A string", isCorrect: true },
+        { id: "b", label: "An integer", isCorrect: false },
+        { id: "c", label: "A list of lines", isCorrect: false },
+      ],
+    },
+    {
+      id: "pq-print",
+      prompt: 'What does print("x") write to stdout?',
+      options: [
+        { id: "a", label: "x followed by a newline", isCorrect: true },
+        { id: "b", label: "x with no newline", isCorrect: false },
+        { id: "c", label: "Nothing until flush()", isCorrect: false },
+      ],
+    },
+    {
+      id: "pq-mod",
+      prompt: "Which expression is True when n is divisible by 15?",
+      options: [
+        { id: "a", label: "n % 15 == 0", isCorrect: true },
+        { id: "b", label: "n / 15 == 0", isCorrect: false },
+        { id: "c", label: "n // 15 == 0", isCorrect: false },
+      ],
+    },
+  ],
+};
+
+export function placementQuestionsFor(trackId: string): PlacementQuestion[] {
+  return PLACEMENT_QUESTIONS[trackId] ?? [];
+}
