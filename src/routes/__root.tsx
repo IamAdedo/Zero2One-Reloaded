@@ -11,6 +11,7 @@ import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/supabase/auth";
 import { AuthButton } from "@/components/layout/AuthButton";
 import { CoachChat } from "@/components/coach/CoachChat";
+import { SearchPalette } from "@/components/search/SearchPalette";
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -79,7 +80,8 @@ function RootComponent() {
               >
                 Dashboard
               </Link>
-              <span className="ml-auto">
+              <span className="ml-auto flex items-center gap-2">
+                <SearchPalette />
                 <AuthButton />
               </span>
             </nav>
