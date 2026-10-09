@@ -8,6 +8,7 @@ import { getDrill, getLesson, listDrills, moduleTitleFor } from "@/data/seed";
 import type { Drill } from "@/lib/domain/types";
 import { runDrill } from "@/server-fns/execute";
 import { StreakCounter } from "@/components/gamification/StreakCounter";
+import { KeyboardShortcutsModal } from "@/components/workspace/KeyboardShortcutsModal";
 import { useLocalStreak } from "@/hooks/useLocalStreak";
 import { useAuth } from "@/lib/supabase/auth";
 import {
@@ -97,6 +98,7 @@ function WorkspacePage() {
           </Link>
         )}
         <span className="ml-auto flex items-center gap-3">
+          <KeyboardShortcutsModal />
           <span className="hidden gap-2 sm:flex">
           {drills
             .filter((d) => d.id !== drill.id)
