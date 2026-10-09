@@ -10,6 +10,7 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/supabase/auth";
 import { AuthButton } from "@/components/layout/AuthButton";
+import { CoachChat } from "@/components/coach/CoachChat";
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -94,6 +95,7 @@ function RootComponent() {
           </AuthProvider>
         </QueryClientProvider>
         <Toaster richColors position="bottom-right" />
+        <CoachChat />
         <Scripts />
       </body>
     </html>

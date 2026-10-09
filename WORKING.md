@@ -22,6 +22,7 @@
 - [x] Remote progress sync (`syncPassToRemote`, UUID-guarded, explicit skip reasons, wired to drill passes; 9 smoke checks green)
 - [x] Placement diagnostics (`/placement/$trackSlug`: 3-question test-out reusing quiz scoring, XP award, persisted record; 4 smoke checks green)
 - [x] Dashboard `/dashboard` (streak card, placements, top learners, drill list; header link)
+- [x] AI coach (`CoachChat` floating widget + `askCoach` server fn: Gemini REST with local-expert fallback; 11 smoke checks green)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
