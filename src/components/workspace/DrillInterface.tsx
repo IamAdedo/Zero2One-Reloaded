@@ -17,6 +17,7 @@ import type { Drill } from "@/lib/domain/types";
 import { xpForPass } from "@/lib/gamification/rules";
 import { scoreUnitTests } from "@/lib/quiz/scoring";
 import { codeFor, useWorkspaceStore } from "@/store/useWorkspaceStore";
+import { PassFeedbackModal } from "@/components/workspace/PassFeedbackModal";
 
 export interface DrillRunVerdict {
   assertionId: string;
@@ -93,6 +94,8 @@ export function DrillInterface({
   const [running, setRunning] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const [consoleTab, setConsoleTab] = useState<"results" | "output">("results");
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [lastPass, setLastPass] = useState<{ xp: number; firstTry: boolean } | null>(null);
 
   const grading =
     verdicts === null
@@ -131,6 +134,8 @@ export function DrillInterface({
       if (grade.passed) {
         const firstTry = nextAttempts === 1;
         const xpEarned = xpForPass({ streakDays, firstTry, capstone: isCapstone });
+        setLastPass({ xp: xpEarned, firstTry });
+        window.setTimeout(() => setFeedbackOpen(true), 400);
         toast.success("Drill passed", {
           description: `+${xpEarned} XP${firstTry ? " (first-try bonus)" : ""}`,
         });
@@ -414,6 +419,16 @@ export function DrillInterface({
           </Group>
         </Panel>
       </Group>
+      <PassFeedbackModal
+        open={feedbackOpen}
+        onOpenChange={setFeedbackOpen}
+        drill={drill}
+        xpEarned={lastPass?.xp ?? 0}
+        firstTry={lastPass?.firstTry ?? false}
+        attempts={attempts}
+        passedCount={passedCount}
+        totalCount={totalCount}
+      />
     </div>
   );
 }

@@ -26,6 +26,7 @@
 - [x] Global search (`SearchPalette` Cmd+K cmdk dialog, seed index with prefix ranking; 7 smoke checks green)
 - [x] Keyboard shortcuts (`KeyboardShortcutsModal`: `?` panel + Alt+D/T/L/H navigation, typing-target guards; 4 smoke checks green)
 - [x] Activity heatmap (`ActivityHeatmap` SVG grid 3m/6m/1y + `useActivity` timestamp log on drill pass; 12 smoke checks green)
+- [x] Pass feedback modal (`PassFeedbackModal` XP/tests/tries breakdown, auto-opens 400ms after green suite; 5 smoke checks green)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
