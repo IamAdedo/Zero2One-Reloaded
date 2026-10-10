@@ -9,6 +9,7 @@ import type { Drill } from "@/lib/domain/types";
 import { runDrill } from "@/server-fns/execute";
 import { StreakCounter } from "@/components/gamification/StreakCounter";
 import { KeyboardShortcutsModal } from "@/components/workspace/KeyboardShortcutsModal";
+import { useActivity } from "@/hooks/useActivity";
 import { useLocalStreak } from "@/hooks/useLocalStreak";
 import { useAuth } from "@/lib/supabase/auth";
 import {
@@ -54,6 +55,7 @@ function WorkspacePage() {
   const addXp = useWorkspaceStore((s) => s.addXp);
   const xp = useWorkspaceStore((s) => s.xp);
   const { state: streak, recordActivity } = useLocalStreak();
+  const { log: logActivity } = useActivity();
   const { user } = useAuth();
 
   useEffect(() => {
@@ -129,6 +131,7 @@ function WorkspacePage() {
           onPass={(info) => {
             addXp(info.xpEarned);
             recordActivity();
+            logActivity();
             void syncPassToRemote(
               getSupabaseBrowserClient(browserSupabaseConfig()),
               user?.id ?? null,

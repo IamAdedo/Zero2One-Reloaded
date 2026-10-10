@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, FlaskConical } from "lucide-react";
 import { StreakCounter } from "@/components/gamification/StreakCounter";
+import { ActivityHeatmap } from "@/components/analytics/ActivityHeatmap";
+import { useActivity } from "@/hooks/useActivity";
 import { useLocalStreak } from "@/hooks/useLocalStreak";
 import { usePlacement } from "@/hooks/usePlacement";
 import {
@@ -18,6 +20,7 @@ function DashboardPage() {
   const xp = useWorkspaceStore((s) => s.xp);
   const { state: streak } = useLocalStreak();
   const { placements } = usePlacement();
+  const { timestamps } = useActivity();
   const drills = listDrills();
   const top = buildLeaderboard(communityBoard(), "xp", 3);
   const placed = Object.values(placements).filter((p) => p.passed);
@@ -87,6 +90,8 @@ function DashboardPage() {
           </div>
         </div>
       </div>
+
+      <ActivityHeatmap timestamps={timestamps} />
 
       <div className="rounded-lg border border-border bg-card p-5">
         <h2 className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-muted-foreground">
