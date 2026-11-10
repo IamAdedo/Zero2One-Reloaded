@@ -2,7 +2,7 @@
 
 ## Current Phase
 **Phase:** Foundation & Core Setup (Phase 2, step 1)
-**Last Updated:** 2026-10-08
+**Last Updated:** 2026-11-10
 
 ## Done this session
 - [x] Quiz registry `src/lib/quiz/` (registry/scoring/schemas/index, 11 smoke assertions green, tsc clean)
@@ -27,6 +27,7 @@
 - [x] Keyboard shortcuts (`KeyboardShortcutsModal`: `?` panel + Alt+D/T/L/H navigation, typing-target guards; 4 smoke checks green)
 - [x] Activity heatmap (`ActivityHeatmap` SVG grid 3m/6m/1y + `useActivity` timestamp log on drill pass; 12 smoke checks green)
 - [x] Pass feedback modal (`PassFeedbackModal` XP/tests/tries breakdown, auto-opens 400ms after green suite; 5 smoke checks green)
+- [x] Curriculum expansion: TypeScript track + Python Collections module (7 drills, 4 lessons, 3 courses, 6 placement questions; seed-integrity smoke green)
 - [x] Relocated `zero2one` → `Zero2One-Legacy` (read-only, remote `IamAdedo/zero2one` intact)
 - [x] Created `./Zero2One`, `git init`, `origin → IamAdedo/Zero2One-Reloaded.git` (repo must exist on GitHub before push)
 - [x] Phase 1 audit: legacy routes/schemas/state/workspace/gamification mapped; 7 reference repos inventoried (see ARCHITECTURE.md matrix)
@@ -35,13 +36,15 @@
 - [x] Base DDL `supabase/schema.sql` + `public/logo.svg` carried over as migration start
 
 ## Next (incremental: Auth → DB → UI Core → Learning Engines → Gamification)
-1. Lesson view (Phase 1) + Supabase wiring; live grading needs `JUDGE0_URL` in `.env`
+1. Certificates on module completion (`certs:issue` permission already defined)
+2. Profile page reusing the activity heatmap + placement history
+3. Move seed curriculum into Supabase content tables (UUID ids unblock remote progress sync)
+4. Live grading needs `JUDGE0_URL`; auth/progress need `VITE_SUPABASE_*`
 
 ## Gotchas
 - `vite dev` regenerates `routeTree.gen.ts` WITHOUT the `@tanstack/react-start` Register block → permanent fix: augmentation lives in tracked `src/start-register.ts`, independent of the generated file. `npm run build` still required after adding routes (regenerates tree).
 - Monaco must load via `lazy()` — static import breaks SSR module interop (client-render fallback, hydration risk).
-4. Workspace ports: StandardIde → DrillInterface → VibeIde
-5. Initial commit + push (after creating GitHub repo `Zero2One-Reloaded`)
+- One lesson can own several drills (e.g. `lesson-ts-arrays` → `ts-sum-evens`, `ts-fizzbuzz`); track pages link the first match.
 
 ## Constraints active
 - Never mutate `./Zero2One-Legacy` or `./reference/*`
